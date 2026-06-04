@@ -1,0 +1,101 @@
+---
+aid: complutense-university-of-madrid
+name: Complutense University of Madrid
+description: >-
+  Complutense University of Madrid (Universidad Complutense de Madrid, UCM) is a
+  major public research university in Spain, ranked #164 in the QS World
+  University Rankings 2025. Its public, machine-readable footprint is centered on
+  open data: UCM is a founding member of UniversiDATA, a collaborative open-data
+  portal for Spanish higher education built on DKAN, which exposes a documented
+  DataStore API, CKAN Dataset API, and DCAT catalog API covering UCM datasets
+  (degree programs, enrollments, staff, budgets, mobility, and procurement). UCM
+  also operates Docta Complutense, its institutional repository on DSpace 7, and
+  maintains an official GitHub organization. No general-purpose UCM developer
+  portal for SIS, course, or library APIs was found publicly documented.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/complutense-university-of-madrid/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Open Data
+  - Research
+  - Spain
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: complutense-university-of-madrid:universidata-datastore
+    name: UniversiDATA DataStore API
+    description: >-
+      DataStore query API of the UniversiDATA open-data platform (DKAN), of which
+      Complutense University of Madrid is a founding participant. Returns the
+      records of published data resources (including UCM datasets) in JSON, XML,
+      or JSONP format.
+    humanURL: https://www.universidata.es/el-api
+    baseURL: https://www.universidata.es/api/action/datastore/search
+    tags: [ Open Data, DataStore, DKAN, Datasets ]
+    properties:
+      - type: Documentation
+        url: https://www.universidata.es/el-api
+  - aid: complutense-university-of-madrid:universidata-ckan
+    name: UniversiDATA CKAN Dataset API
+    description: >-
+      CKAN-compatible metadata API of the UniversiDATA platform. Lists datasets
+      and resources and returns dataset/resource metadata, including UCM open
+      datasets. Supports actions such as current_package_list_with_resources,
+      package_show, and resource_show.
+    humanURL: https://www.universidata.es/el-api
+    baseURL: https://www.universidata.es/api/3/action/
+    tags: [ Open Data, CKAN, Metadata, Datasets ]
+    properties:
+      - type: Documentation
+        url: https://www.universidata.es/el-api
+  - aid: complutense-university-of-madrid:universidata-dcat
+    name: UniversiDATA DCAT Catalog API
+    description: >-
+      DCAT catalog API of UniversiDATA, exposing the dataset catalog per
+      participating university. The UCM catalog is reachable via the university
+      acronym path segment on the DCAT endpoint.
+    humanURL: https://www.universidata.es/el-api
+    baseURL: https://universidatacatalog.azurewebsites.net/api/universidades/
+    tags: [ Open Data, DCAT, Catalog ]
+    properties:
+      - type: Documentation
+        url: https://www.universidata.es/el-api
+  - aid: complutense-university-of-madrid:docta-complutense
+    name: Docta Complutense Institutional Repository
+    description: >-
+      Docta Complutense is UCM's open-access institutional repository, migrated in
+      2023 to DSpace 7. As a DSpace platform it underpins open-access discovery of
+      theses, articles, and research outputs; programmatic access (DSpace REST /
+      OAI-PMH) is typically available but endpoint paths were not publicly
+      confirmed during this review.
+    humanURL: https://docta.ucm.es/
+    tags: [ Repository, Open Access, DSpace, Research ]
+    properties:
+      - type: Documentation
+        url: https://docta.ucm.es/
+common:
+  - type: Website
+    url: https://www.ucm.es/
+  - type: GitHub
+    url: https://github.com/UniversidadComplutense
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/universidad-complutense-de-madrid/
+  - type: DeveloperPortal
+    url: https://www.universidata.es/el-api
+  - type: Plans
+    url: plans/complutense-university-of-madrid-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/complutense-university-of-madrid-rate-limits.yml
+  - type: FinOps
+    url: finops/complutense-university-of-madrid-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

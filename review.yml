@@ -1,0 +1,53 @@
+---
+name: Complutense University of Madrid
+description: Complutense University of Madrid public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/complutense-university-of-madrid/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 3
+    summary: >-
+      Complutense University of Madrid (QS World 2025 #164) has a real,
+      documented public API footprint primarily through UniversiDATA, the
+      collaborative Spanish higher-education open-data platform (DKAN) in which
+      UCM is a founding participant. The UniversiDATA developer page documents a
+      DataStore API, a CKAN Dataset API, and a DCAT catalog API, all of which
+      resolved live. UCM also runs Docta Complutense, a DSpace 7 institutional
+      repository (home page live), and an official GitHub organization with a few
+      public repos. DSpace REST/OAI-PMH endpoints were not confirmed at standard
+      paths, so they are described only at the human-facing level rather than as
+      published machine endpoints. No dedicated UCM SIS/course/library developer
+      portal was found. No fabrication: only endpoints and properties verified
+      live or in official docs are cataloged.
+    endpoints:
+      - url: https://www.ucm.es/
+        status: 200
+        note: Official university website resolves.
+      - url: https://www.universidata.es/
+        status: 200
+        note: UniversiDATA open-data portal home (UCM founding participant).
+      - url: https://www.universidata.es/el-api
+        status: 200
+        note: API documentation page (DataStore, CKAN, DCAT).
+      - url: https://www.universidata.es/api/3/action/current_package_list_with_resources
+        status: 200
+        note: CKAN dataset list endpoint resolves (200).
+      - url: https://www.universidata.es/universidades/universidad-complutense-de-madrid-ucm
+        status: 200
+        note: UCM-specific UniversiDATA institution page.
+      - url: https://docta.ucm.es/
+        status: 200
+        note: Docta Complutense DSpace 7 institutional repository home.
+      - url: https://docta.ucm.es/server/api
+        status: 404
+        note: Standard DSpace 7 REST root not reachable at this path during review.
+      - url: https://docta.ucm.es/server/oai/request?verb=Identify
+        status: 404
+        note: OAI-PMH not confirmed at standard DSpace path; not cataloged as machine endpoint.
+      - url: https://github.com/UniversidadComplutense
+        status: 200
+        note: Official UCM GitHub organization (few public repos).
+      - url: https://www.linkedin.com/school/universidad-complutense-de-madrid/
+        status: 999
+        note: LinkedIn school page (999 is LinkedIn anti-bot response, page exists).
