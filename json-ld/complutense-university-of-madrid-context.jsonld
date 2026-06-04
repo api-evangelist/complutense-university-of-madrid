@@ -1,0 +1,39 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "ucm": "https://www.ucm.es/ns#",
+    "@vocab": "https://www.ucm.es/ns#",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "sameAs": "schema:sameAs",
+    "logo": "schema:logo",
+    "address": "schema:address",
+    "department": "schema:department",
+    "University": "schema:CollegeOrUniversity",
+    "Dataset": "schema:Dataset",
+    "DataCatalog": "schema:DataCatalog",
+    "distribution": "dcat:distribution",
+    "Distribution": "dcat:Distribution",
+    "accessURL": "dcat:accessURL",
+    "identifier": "schema:identifier",
+    "title": "schema:name",
+    "publisher": "schema:publisher",
+    "keyword": "dcat:keyword",
+    "resource": "dcat:Distribution",
+    "resource_id": "schema:identifier",
+    "package": "schema:Dataset"
+  },
+  "@type": "University",
+  "@id": "https://www.ucm.es/",
+  "name": "Complutense University of Madrid",
+  "url": "https://www.ucm.es/",
+  "description": "Universidad Complutense de Madrid (UCM), a major public research university in Spain and founding member of the UniversiDATA open-data portal.",
+  "sameAs": [
+    "https://github.com/UniversidadComplutense",
+    "https://www.linkedin.com/school/universidad-complutense-de-madrid/",
+    "https://docta.ucm.es/",
+    "https://www.universidata.es/el-api"
+  ]
+}
