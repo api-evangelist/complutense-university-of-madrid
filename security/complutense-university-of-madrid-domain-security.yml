@@ -1,0 +1,36 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.ucm.es
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec  4 08:18:56 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: www.universidata.es
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 14:58:01 2026 GMT
+  hsts: true
+  hsts_max_age: 31622400
+- host: universidatacatalog.azurewebsites.net
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov 26 20:52:45 2026 GMT
+  hsts: null
+domains:
+- domain: ucm.es
+  dnssec: false
+  caa:
+  - 0 issue "harica.gr"
+  - 0 iodef "mailto:admin@ucm.es"
+  - 0 issuewild "harica.gr"
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
+- domain: universidata.es
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false
