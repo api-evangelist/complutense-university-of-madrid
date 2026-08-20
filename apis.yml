@@ -49,7 +49,16 @@ apis:
       or JSONP format.
     humanURL: https://www.universidata.es/el-api
     baseURL: https://www.universidata.es/api/action/datastore/search
-    tags: [ Open Data, DataStore, DKAN, Datasets ]
+    tags:
+    - Open Data
+    - Datastore
+    - DKAN
+    - Datasets
+    tags_raw:
+    - Open Data
+    - DataStore
+    - DKAN
+    - Datasets
     properties:
       - type: Documentation
         url: https://www.universidata.es/el-api
