@@ -1,71 +1,161 @@
 ---
 aid: complutense-university-of-madrid
 name: Complutense University of Madrid
+x-type: university
+x-category: Public Research University
 description: >-
-  Complutense University of Madrid (Universidad Complutense de Madrid, UCM) is a
-  major public research university in Spain, ranked #164 in the QS World
-  University Rankings 2025. Its public, machine-readable footprint is centered on
-  open data: UCM is a founding member of UniversiDATA, a collaborative open-data
-  portal for Spanish higher education built on DKAN, which exposes a documented
-  DataStore API, CKAN Dataset API, and DCAT catalog API covering UCM datasets
-  (degree programs, enrollments, staff, budgets, mobility, and procurement). UCM
-  also operates Docta Complutense, its institutional repository on DSpace 7, and
-  maintains an official GitHub organization. No general-purpose UCM developer
-  portal for SIS, course, or library APIs was found publicly documented.
+  Universidad Complutense de Madrid (UCM) is Spain's largest public research
+  university, founded 1499 and ranked #164 in the QS World University Rankings
+  2025. UCM operates no central developer portal and publishes no OpenAPI,
+  AsyncAPI or SDK of its own — a re-profile on 2026-08-30 probed every candidate
+  host and found none. What it does operate, verified live, is two things. First,
+  Docta Complutense (docta.ucm.es), its institutional repository, self-hosted on
+  UCM's own domain running DSpace 7.6.5: the DSpace REST/HAL API answers at
+  /rest/api and an OAI-PMH 2.0 endpoint answers verb=Identify at
+  /rest/oai/request with twelve metadata formats. The repository is UCM's; the
+  API contract is DSpace's open-source one and is not saved here. Second, UCM is
+  registered in eduGAIN through the Spanish RedIRIS SIR federation as a SAML 2.0
+  Identity Provider (entityID https://www.rediris.es/sir/ucmidp, scope ucm.es,
+  Sirtfi asserted) — machine-readable, institution-scoped, but hosted on RedIRIS
+  infrastructure, so recorded as a tenant relationship. UCM's open data is not
+  self-hosted either: it is published through UniversiDATA, a five-university
+  DKAN consortium portal (UAM, UCM, UHU, UVa, URJC) that exposes DataStore, CKAN
+  and DCAT APIs. Thirteen of the portal's seventy-one datasets are UCM's —
+  degree programmes, faculties, departments, budgets, mobility and procurement.
+  UCM's data, the consortium's platform, so every UniversiDATA surface below is
+  x-operator tenant, not institution. No course/timetable API, no library
+  discovery API, no research-computing or campus-life API was found on any
+  ucm.es host.
 type: Index
 deliveryModel:
   model: saas
   open_source: false
-  commercial: true
-  callable_host: false
-  label: Hosted service · you call their endpoint
+  commercial: false
+  callable_host: true
+  label: Institution-operated and consortium-hosted endpoints · free to call
   confidence: medium
   source:
-  - pricing
-  generated: '2026-08-28'
-  method: derived
+  - probed
+  generated: '2026-08-30'
+  method: probed
 accessModel:
   pricing: free
-  onboarding: unknown
+  onboarding: none
   trial: false
-  try_now: false
-  public: false
-  label: Free
+  try_now: true
+  public: true
+  label: Free · no key required on the probed endpoints
   confidence: medium
   source:
-  - plans
-  generated: '2026-07-22'
-  method: derived
+  - probed
+  generated: '2026-08-30'
+  method: probed
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/complutense-university-of-madrid.png
 url: https://raw.githubusercontent.com/api-evangelist/complutense-university-of-madrid/refs/heads/main/apis.yml
 tags:
-  - Education
-  - Higher Education
   - University
-  - Open Data
-  - Research
+  - Higher Education
+  - Education
+  - Public Research University
   - Spain
+  - Madrid
+  - Open Data
+  - Research Data
+  - Institutional Repository
+  - Identity Federation
+  - OAI-PMH
+  - DSpace
+  - DKAN
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 specificationVersion: '0.23'
 apis:
+  - aid: complutense-university-of-madrid:docta-complutense
+    name: Docta Complutense Repository API (DSpace 7)
+    x-operator: institution
+    description: >-
+      Docta Complutense is UCM's open-access institutional repository, migrated
+      in 2023 to DSpace 7 and self-hosted on UCM's own domain. Probed
+      2026-08-30: GET https://docta.ucm.es/rest/api returns HTTP 200
+      application/json, a DSpace 7.6.5 HAL root naming itself "Docta
+      Complutense" and advertising 68 link relations (items, collections,
+      communities, discover, bitstreams, versioning, statistics, pid). The
+      deployment and the content are UCM's; the API contract is the DSpace
+      project's generic one, so no specification is saved under this
+      institution.
+    humanURL: https://docta.ucm.es/
+    baseURL: https://docta.ucm.es/rest/api
+    tags:
+    - Institutional Repository
+    - Open Access
+    - DSpace
+    - Research Data
+    properties:
+      - type: Documentation
+        url: https://docta.ucm.es/
+      - type: APIReference
+        url: https://docta.ucm.es/rest
+  - aid: complutense-university-of-madrid:docta-oai-pmh
+    name: Docta Complutense OAI-PMH Endpoint
+    x-operator: institution
+    description: >-
+      OAI-PMH 2.0 harvesting endpoint for Docta Complutense, on UCM's own host.
+      Probed 2026-08-30: verb=Identify returns HTTP 200 text/xml with
+      repositoryName "Docta Complutense", repositoryIdentifier docta.ucm.es,
+      adminEmail docta@ucm.es, earliestDatestamp 2023-06-14, granularity
+      YYYY-MM-DDThh:mm:ssZ; verb=ListMetadataFormats returns twelve prefixes
+      (oai_dc, qdc, mods, mets, marc, etdms, didl, ore, rdf, xoai, dim,
+      uketd_dc). This is the education-regime oai-pmh conformance evidence and
+      the clearest institution-operated machine-readable surface UCM has.
+    humanURL: https://docta.ucm.es/
+    baseURL: https://docta.ucm.es/rest/oai/request
+    tags:
+    - OAI-PMH
+    - Harvesting
+    - Metadata
+    - Institutional Repository
+    properties:
+      - type: Documentation
+        url: https://docta.ucm.es/
+  - aid: complutense-university-of-madrid:identity-federation
+    name: UCM SAML 2.0 Identity Provider (RedIRIS SIR / eduGAIN)
+    x-operator: tenant
+    description: >-
+      UCM's institutional single sign-on, registered in eduGAIN through RedIRIS
+      SIR, the Spanish national research and education federation. entityID
+      https://www.rediris.es/sir/ucmidp, role IDPSSODescriptor, shibmd:Scope
+      ucm.es, Sirtfi asserted, first seen in eduGAIN 2017-04-13. Probed
+      2026-08-30: the entityID returns HTTP 200 text/xml, 10279 bytes of SAML
+      2.0 metadata with SSOService and SingleLogoutService at
+      https://sir.rediris.es/ucm/saml2/idp/. Operator is tenant, not
+      institution — the IdP runs on RedIRIS infrastructure under a UCM-specific
+      /ucm/ path — but the entity, the scope and the user population are UCM's.
+    humanURL: https://www.rediris.es/sir/
+    baseURL: https://www.rediris.es/sir/ucmidp
+    tags:
+    - Identity Federation
+    - SAML
+    - eduGAIN
+    - Single Sign-On
+    properties:
+      - type: Documentation
+        url: https://www.rediris.es/sir/
   - aid: complutense-university-of-madrid:universidata-datastore
     name: UniversiDATA DataStore API
+    x-operator: tenant
     description: >-
-      DataStore query API of the UniversiDATA open-data platform (DKAN), of which
-      Complutense University of Madrid is a founding participant. Returns the
-      records of published data resources (including UCM datasets) in JSON, XML,
-      or JSONP format.
+      DataStore query API of UniversiDATA, the DKAN open-data platform shared by
+      five Spanish public universities (UAM, UCM, UHU, UVa, URJC) of which UCM is
+      a founding member. Returns the records of a published resource as JSON,
+      XML or JSONP, with limit, offset, filters, fields, sort, query and
+      multi-resource join parameters. Probed 2026-08-30: HTTP 200
+      application/json against a resource_id. The platform and the contract
+      belong to the consortium, not to UCM alone — hence tenant.
     humanURL: https://www.universidata.es/el-api
-    baseURL: https://www.universidata.es/api/action/datastore/search
+    baseURL: https://www.universidata.es/api/action/datastore/search.json
     tags:
-    - Open Data
-    - Datastore
-    - DKAN
-    - Datasets
-    tags_raw:
     - Open Data
     - DataStore
     - DKAN
@@ -75,53 +165,128 @@ apis:
         url: https://www.universidata.es/el-api
   - aid: complutense-university-of-madrid:universidata-ckan
     name: UniversiDATA CKAN Dataset API
+    x-operator: tenant
     description: >-
-      CKAN-compatible metadata API of the UniversiDATA platform. Lists datasets
-      and resources and returns dataset/resource metadata, including UCM open
-      datasets. Supports actions such as current_package_list_with_resources,
-      package_show, and resource_show.
+      CKAN-compatible metadata API of the UniversiDATA consortium platform,
+      supporting current_package_list_with_resources, package_show and
+      resource_show. Probed 2026-08-30: HTTP 200 application/json returning 71
+      packages across the five member universities, of which 13 are UCM's —
+      UCM-Titulaciones, UCM-Centros, UCM-Departamentos, UCM-Presupuesto de
+      Gastos, UCM-Presupuesto de Ingresos, UCM-Movilidad-Entrantes,
+      UCM-Movilidad-Salientes and UCM-Licitaciones de Contratos Mayores among
+      them. The action root https://www.universidata.es/api/3/action/ itself
+      returns HTTP 404, so baseURL points at the live
+      current_package_list_with_resources action; other actions follow the
+      same /api/3/action/<action> pattern.
     humanURL: https://www.universidata.es/el-api
-    baseURL: https://www.universidata.es/api/3/action/
-    tags: [ Open Data, CKAN, Metadata, Datasets ]
+    baseURL: https://www.universidata.es/api/3/action/current_package_list_with_resources
+    tags:
+    - Open Data
+    - CKAN
+    - Metadata
+    - Datasets
     properties:
       - type: Documentation
         url: https://www.universidata.es/el-api
   - aid: complutense-university-of-madrid:universidata-dcat
     name: UniversiDATA DCAT Catalog API
+    x-operator: tenant
     description: >-
-      DCAT catalog API of UniversiDATA, exposing the dataset catalog per
-      participating university. The UCM catalog is reachable via the university
-      acronym path segment on the DCAT endpoint.
+      DCAT catalogue endpoint of UniversiDATA, addressed per participating
+      university by acronym. The UCM catalogue is the only UCM-specific path on
+      this host. Probed 2026-08-30: the previously recorded base
+      /api/universidades/ returns HTTP 404; /api/universidades/ucm returns HTTP
+      200 application/xml, 561329 bytes of rdf:RDF using dcat, dct, foaf and
+      adms. The pointer has been re-based onto the working UCM path.
     humanURL: https://www.universidata.es/el-api
-    baseURL: https://universidatacatalog.azurewebsites.net/api/universidades/
-    tags: [ Open Data, DCAT, Catalog ]
+    baseURL: https://universidatacatalog.azurewebsites.net/api/universidades/ucm
+    tags:
+    - Open Data
+    - DCAT
+    - Catalog
+    - Metadata
     properties:
       - type: Documentation
         url: https://www.universidata.es/el-api
-  - aid: complutense-university-of-madrid:docta-complutense
-    name: Docta Complutense Institutional Repository
-    description: >-
-      Docta Complutense is UCM's open-access institutional repository, migrated in
-      2023 to DSpace 7. As a DSpace platform it underpins open-access discovery of
-      theses, articles, and research outputs; programmatic access (DSpace REST /
-      OAI-PMH) is typically available but endpoint paths were not publicly
-      confirmed during this review.
-    humanURL: https://docta.ucm.es/
-    tags: [ Repository, Open Access, DSpace, Research ]
-    properties:
-      - type: Documentation
-        url: https://docta.ucm.es/
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    UCM operates no developer portal and publishes no specification of its own,
+    but it is not a blank profile: a 2026-08-30 re-probe confirmed two
+    institution-operated machine-readable surfaces on ucm.es (the Docta
+    Complutense DSpace 7.6.5 REST/HAL API and its OAI-PMH 2.0 endpoint), one
+    tenant identity-federation entity in eduGAIN via RedIRIS SIR, and three
+    tenant open-data APIs on the five-university UniversiDATA consortium
+    platform carrying 13 UCM datasets. The June 2026 profile classed the
+    UniversiDATA hosts as institution-owned; they are not — universidata.es
+    serves UAM, UCM, UHU, UVa and URJC, and the cohort-derived vendor check was
+    blind to it because the other four members are not in the 248-university
+    roster. The DCAT pointer was dead (404) and has been re-based. No course
+    catalog, timetable, library discovery, research-computing or campus-life API
+    was found on any ucm.es host; api./datos./opendata./data.ucm.es do not
+    resolve. No llms.txt on www.ucm.es or docta.ucm.es (both 404). No
+    institutional privacy-policy page could be resolved — www.ucm.es links to
+    https://www.ucm.es/datos-personales from its own aviso legal and that URL
+    returns 404 — so no PrivacyPolicy pointer is emitted.
+  evidence:
+    - url: https://docta.ucm.es/rest/api
+      status: 200
+    - url: https://docta.ucm.es/rest/oai/request?verb=Identify
+      status: 200
+    - url: https://docta.ucm.es/rest/oai/request?verb=ListMetadataFormats
+      status: 200
+    - url: https://www.rediris.es/sir/ucmidp
+      status: 200
+    - url: https://www.universidata.es/api/3/action/current_package_list_with_resources
+      status: 200
+    - url: https://www.universidata.es/api/action/datastore/search.json?resource_id=84d7461c-34a9-4682-927f-3b20c1a02a3c&limit=1
+      status: 200
+    - url: https://universidatacatalog.azurewebsites.net/api/universidades/ucm
+      status: 200
+    - url: https://universidatacatalog.azurewebsites.net/api/universidades/
+      status: 404
+    - url: https://www.ucm.es/llms.txt
+      status: 404
+    - url: https://www.ucm.es/datos-personales
+      status: 404
+    - url: https://www.ucm.es/
+      status: 200
+  generated: '2026-08-30'
+  method: probed
 common:
-  - type: DomainSecurity
-    url: security/complutense-university-of-madrid-domain-security.yml
   - type: Website
     url: https://www.ucm.es/
+  - type: Documentation
+    url: https://www.universidata.es/el-api
+  - type: APIReference
+    url: https://docta.ucm.es/rest
+  - type: DeveloperPortal
+    url: https://www.universidata.es/el-api
+  - type: OpenData
+    url: https://www.ucm.es/portaldetransparencia/datos-abiertos
+  - type: ResearchRepository
+    url: https://docta.ucm.es/
+  - type: IdentityFederation
+    url: https://www.rediris.es/sir/ucmidp
+  - type: LibraryCatalog
+    url: https://biblioteca.ucm.es/
+  - type: AIPolicy
+    url: https://bouc.ucm.es/pdf/5785.pdf
+  - type: AITooling
+    url: https://ssii.ucm.es/herramientas-ia-generativa
+  - type: TermsOfService
+    url: https://www.ucm.es/aviso-legal
   - type: GitHub
     url: https://github.com/UniversidadComplutense
   - type: LinkedIn
     url: https://www.linkedin.com/school/universidad-complutense-de-madrid/
-  - type: DeveloperPortal
-    url: https://www.universidata.es/el-api
+  - type: Conformance
+    url: conformance/complutense-university-of-madrid-conformance.yml
+  - type: JSONLD
+    url: json-ld/complutense-university-of-madrid-context.jsonld
+  - type: DomainSecurity
+    url: security/complutense-university-of-madrid-domain-security.yml
   - type: Plans
     url: plans/complutense-university-of-madrid-plans-pricing.yml
   - type: RateLimits
