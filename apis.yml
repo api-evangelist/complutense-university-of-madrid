@@ -157,6 +157,11 @@ apis:
     baseURL: https://www.universidata.es/api/action/datastore/search.json
     tags:
     - Open Data
+    - Datastore
+    - DKAN
+    - Datasets
+    tags_raw:
+    - Open Data
     - DataStore
     - DKAN
     - Datasets
