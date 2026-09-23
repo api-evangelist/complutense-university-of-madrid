@@ -1,0 +1,155 @@
+generated: '2026-08-30'
+method: derived
+probe_method: probed
+source: https://docta.ucm.es/rest/oai/request?verb=Identify
+x-source-url: https://docta.ucm.es/rest/oai/request?verb=Identify
+authorship: >-
+  Written by API Evangelist from live HTTP probes run 2026-08-30. Every entry
+  below records the endpoint, the status code and the response detail that
+  established it. UCM published none of this file; UCM published the endpoints
+  it describes.
+note: >-
+  Education-regime domain-standard conformance for Universidad Complutense de
+  Madrid, established by live probe on 2026-08-30 rather than from a prose claim.
+  UCM publishes no OpenAPI, AsyncAPI or developer portal of its own, so every
+  entry below is evidenced by an HTTP response from a named endpoint, with the
+  status code recorded. Only surfaces UCM itself operates or holds an
+  institution-specific account on are counted; the shared UniversiDATA consortium
+  platform and the RedIRIS-hosted identity provider are labelled as such.
+  Reward-only: a standard with no live evidence is recorded conforms:false, never
+  inferred from the presence of the software that usually implements it.
+regime: education
+regime_id: education
+standards:
+- id: oai-pmh
+  conforms: true
+  operator: institution
+  endpoint: https://docta.ucm.es/rest/oai/request
+  evidence: >-
+    GET https://docta.ucm.es/rest/oai/request?verb=Identify returned HTTP 200
+    text/xml with <repositoryName>Docta Complutense</repositoryName>,
+    <baseURL>https://docta.ucm.es/rest/oai/request</baseURL>, protocolVersion
+    2.0, adminEmail docta@ucm.es, repositoryIdentifier docta.ucm.es,
+    earliestDatestamp 2023-06-14T07:40:24Z, granularity
+    YYYY-MM-DDThh:mm:ssZ. ListMetadataFormats returned HTTP 200 with twelve
+    prefixes: oai_dc, qdc, mods, mets, marc, etdms, didl, ore, rdf, xoai, dim,
+    uketd_dc. Host docta.ucm.es is under UCM's own registrable domain.
+  probed: '2026-08-30'
+  status: 200
+- id: saml
+  conforms: true
+  operator: tenant
+  endpoint: https://www.rediris.es/sir/ucmidp
+  evidence: >-
+    UCM is registered in eduGAIN as a SAML 2.0 Identity Provider, entityID
+    https://www.rediris.es/sir/ucmidp, role IDPSSODescriptor, registration
+    authority http://www.rediris.es/ (RedIRIS SIR, the Spanish national R&E
+    federation), displayName "Complutense University of Madrid" /
+    "Universidad Complutense de Madrid", shibmd:Scope ucm.es, Sirtfi asserted,
+    first seen 2017-04-13. GET on the entityID returned HTTP 200 text/xml, 10279
+    bytes of md:EntitiesDescriptor with SSOService at
+    https://sir.rediris.es/ucm/saml2/idp/SSOService.php and
+    SingleLogoutService at https://sir.rediris.es/ucm/saml2/idp/SingleLogoutService.php.
+    Operator is tenant, not institution: the IdP endpoints run on RedIRIS
+    infrastructure under a UCM-specific /ucm/ path, and OrganizationURL points
+    back to http://www.ucm.es/.
+  probed: '2026-08-30'
+  status: 200
+- id: shibboleth
+  conforms: partial
+  operator: tenant
+  endpoint: https://www.rediris.es/sir/ucmidp
+  evidence: >-
+    The UCM IdP metadata carries the Shibboleth metadata extension
+    <shibmd:Scope regexp="false">ucm.es</shibmd:Scope> and is consumed by the
+    Shibboleth-compatible eduGAIN/SIR federation, but the deployed SSO endpoints
+    are SimpleSAMLphp (saml2/idp/SSOService.php), not a Shibboleth IdP. Recorded
+    partial so the federation membership is not read as a Shibboleth software
+    deployment.
+  probed: '2026-08-30'
+  status: 200
+- id: dcat
+  conforms: true
+  operator: tenant
+  endpoint: https://universidatacatalog.azurewebsites.net/api/universidades/ucm
+  evidence: >-
+    GET returned HTTP 200 application/xml, 561329 bytes of rdf:RDF using the
+    dcat, dct, foaf and adms vocabularies — UCM's dataset catalogue on the
+    UniversiDATA consortium platform. Not one of the twelve education-regime
+    domain standards; recorded because it is UCM's only machine-readable
+    catalogue description.
+  probed: '2026-08-30'
+  status: 200
+- id: scim
+  conforms: false
+  evidence: No SCIM endpoint or documentation found on any ucm.es host.
+- id: lti
+  conforms: false
+  evidence: >-
+    No public LTI tool registration or platform configuration endpoint found.
+    UCM's Moodle campus is behind authentication and publishes no LTI metadata
+    at a public URL.
+- id: oneroster
+  conforms: false
+  evidence: No OneRoster endpoint found; UCM is not a US K-12 or SIS-integrated context.
+- id: ed-fi
+  conforms: false
+  evidence: No Ed-Fi endpoint found; Ed-Fi is a US K-12 standard with no Spanish HE adoption here.
+- id: caliper
+  conforms: false
+  evidence: No Caliper analytics endpoint or event store found.
+- id: qti
+  conforms: false
+  evidence: No public QTI assessment interchange surface found.
+- id: orcid
+  conforms: false
+  evidence: >-
+    Docta Complutense runs DSpace 7.6.5, which supports ORCID integration, but
+    no ORCID authority, orcid.id metadata field or ORCID login was confirmed on
+    the live instance. Not credited on software capability alone.
+- id: datacite
+  conforms: false
+  evidence: >-
+    Docta Complutense mints Handle identifiers, not DataCite DOIs — the OAI
+    sampleIdentifier is oai:docta.ucm.es:20.500.14352/1234, a Handle prefix.
+- id: crossref
+  conforms: false
+  evidence: >-
+    UCM's journal platform revistas.ucm.es deposits with Crossref as a
+    publisher, but no Crossref-facing institutional API surface was probed in
+    this run; not credited without evidence.
+adjacent:
+- id: rest
+  conforms: true
+  endpoint: https://docta.ucm.es/rest/api
+  evidence: >-
+    GET https://docta.ucm.es/rest/api returned HTTP 200 application/json — a
+    DSpace 7.6.5 HAL root advertising 68 link relations (dspaceName "Docta
+    Complutense", dspaceServer https://docta.ucm.es/rest). The contract is
+    DSpace's, not UCM's; the deployment is UCM's.
+  probed: '2026-08-30'
+  status: 200
+- id: hal
+  conforms: true
+  endpoint: https://docta.ucm.es/rest/api
+  evidence: The DSpace REST root is served as HAL with _links, and ships a HAL Browser at https://docta.ucm.es/rest.
+  probed: '2026-08-30'
+  status: 200
+- id: ckan-api
+  conforms: true
+  endpoint: https://www.universidata.es/api/3/action/current_package_list_with_resources
+  evidence: >-
+    GET returned HTTP 200 application/json, 2191395 bytes, 71 packages across
+    the five UniversiDATA member universities, of which 13 are UCM-authored
+    (UCM-Titulaciones, UCM-Centros, UCM-Departamentos, UCM-Presupuesto de
+    Gastos, UCM-Presupuesto de Ingresos, UCM-Movilidad-Entrantes,
+    UCM-Movilidad-Salientes, UCM-Licitaciones de Contratos Mayores and five
+    more).
+  probed: '2026-08-30'
+  status: 200
+- id: llms-txt
+  conforms: false
+  evidence: GET https://www.ucm.es/llms.txt and https://docta.ucm.es/llms.txt both returned HTTP 404.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
